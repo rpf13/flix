@@ -11,6 +11,7 @@ module MoviesHelper
   end
 
   def year_of(movie)
+    # used to display the year of its release
     movie.released_on.year
   end
 end
