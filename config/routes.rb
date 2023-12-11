@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  resources :reviews
 
   root "movies#index"
 
-  resources :movies
+  resources :movies do
+    resources :reviews
+  end
 
   # Above resources conventional shortcut, removes the need to create
   # individual routes, as they are shown below
