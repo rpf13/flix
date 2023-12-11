@@ -1,6 +1,11 @@
 class Movie < ApplicationRecord
   RATINGS = %w(G PG PG-13 R NC-17)
 
+  # the dependent option destroy will make sure, child entries
+  # (foreign_keys), which are reviews, will also be deleted if
+  # the parent gets deleted
+  has_many :reviews, dependent: :destroy
+
   validates :title, :released_on, :duration, presence: true
 
   validates :description, length: { minimum:25 }
