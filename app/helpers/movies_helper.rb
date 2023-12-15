@@ -14,4 +14,15 @@ module MoviesHelper
     # used to display the year of its release
     movie.released_on.year
   end
+
+  # no longer used, would display text on how many
+  # stars in average
+  def average_stars(movie)
+    if movie.average_stars.zero?
+      content_tag(:strong, "No reviews")
+    else
+      "*" * movie.average_stars.round
+    end
+
+  end
 end

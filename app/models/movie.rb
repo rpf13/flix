@@ -26,6 +26,16 @@ class Movie < ApplicationRecord
   def flop?
     # helper method flop? (returns true or false) to define
     # if a movie is a flop or not
-    total_gross < 225000000 || total_gross.blank?
+    unless (reviews.count > 50 && average_stars >= 4)
+      total_gross < 225000000 || total_gross.blank?
+    end
+  end
+
+  def average_stars
+    reviews.average(:stars) || 0.0
+  end
+
+  def average_stars_as_percent
+    (self.average_stars / 5.0) * 100
   end
 end
