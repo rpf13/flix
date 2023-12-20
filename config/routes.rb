@@ -1,11 +1,17 @@
 Rails.application.routes.draw do
-  resources :users
 
   root "movies#index"
 
   resources :movies do
     resources :reviews
   end
+
+  resources :users
+
+  # custom route to use /signup in addition to /users/new
+  get "signup" => "users#new"
+
+
 
   # Above resources conventional shortcut, removes the need to create
   # individual routes, as they are shown below
