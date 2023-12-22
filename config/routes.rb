@@ -11,6 +11,13 @@ Rails.application.routes.draw do
   # custom route to use /signup in addition to /users/new
   get "signup" => "users#new"
 
+  # the session resouce will limit to only have routes for the
+  # specified actions, since we don't need edit, ...
+  resource :session, only: [:new, :create, :destroy]
+
+  # custom route to use /signin in addition to /session/new
+  get "signin" => "sessions#new"
+
 
 
   # Above resources conventional shortcut, removes the need to create

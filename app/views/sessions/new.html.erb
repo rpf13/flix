@@ -1,0 +1,19 @@
+<h1>Sign In</h1>
+
+<p>
+  Don't have an account? <%= link_to "Sign up!", signup_path %>
+</p>
+<%# Remember, we don't have a model for sessions so this form won't be bound 
+to a model object. So when calling the form_with method to generate the form, 
+you'll need to use the url option rather than the model option we've used previously. 
+The value of the url option needs to be the URL where the form will POST the form data. 
+Use a route helper method to generate that URL.  %>
+
+<%= form_with(url: session_path) do |f| %>
+  <%= f.label :email %>
+  <%= f.email_field :email, autofocus: true, required: true %>
+  <%= f.label :password %>
+  <%= f.password_field :password, required: true %>
+
+  <%= f.submit "Sign In" %>
+<% end %>
