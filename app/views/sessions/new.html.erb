@@ -10,8 +10,8 @@ The value of the url option needs to be the URL where the form will POST the for
 Use a route helper method to generate that URL.  %>
 
 <%= form_with(url: session_path) do |f| %>
-  <%= f.label :email %>
-  <%= f.email_field :email, autofocus: true, required: true %>
+  <%= f.label :email_or_username %>
+  <%= f.text_field :email_or_username, autofocus: true, required: true %>
   <%= f.label :password %>
   <%= f.password_field :password, required: true %>
 
