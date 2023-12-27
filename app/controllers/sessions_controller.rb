@@ -19,7 +19,11 @@ class SessionsController < ApplicationController
       # if user is authenticated, session id is created and we use
       # the user id value and assign it to the user_id key of the
 
-      redirect_to user, notice: "Welcome back, #{user.name}!"
+      redirect_to (session[:intended_url] || user),
+                  notice: "Welcome back, #{user.name}!"
+      # once user session is created / user is logged in, we redirect
+      # user to original intended url or if there wasn't any, to the
+      # user profile page
     else
       flash.now[:alert] = "invalid email/password combination!"
       # flash.now makes the flash message available in the same 
