@@ -30,6 +30,10 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-
+    # To sign out / remove user from session, we can simply
+    # set the session's user_id to nil
+    session[:user_id] = nil
+    redirect_to movies_url, status: :see_other,
+    notice: "Successfully signed out!"
   end
 end
