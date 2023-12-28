@@ -33,8 +33,10 @@
                 class: "review" %>
   </div>
 </section>
+<% if current_user_admin? %>
 <section class="admin">
-  <%= link_to "Edit", edit_movie_path(@movie), class: "button" %>
-  <%= link_to "Delete", movie_path(@movie), class: "button",
-        data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }  %>
-</section>
+    <%= link_to "Edit", edit_movie_path(@movie), class: "button" %>
+    <%= link_to "Delete", movie_path(@movie), class: "button",
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }  %>
+  </section>
+<% end %>

@@ -27,7 +27,8 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_user?
-  # Helper to make it possible to call from model
+  # Helper to make it possible to call from view since
+  # by default controller methods are not available in views
 
   def require_signin
     unless current_user
@@ -38,4 +39,24 @@ class ApplicationController < ActionController::Base
       redirect_to new_session_url, alert: "Please sign in first!"
     end
   end
+
+  def require_admin
+    # check if user is admin, admin flag set true/false if not
+    # redirect to root url
+    # based on concatenation of current_user_admin? method, which
+    # checks if user is logged in and admin
+    unless current_user_admin?
+      redirect_to root_url, alert: "Unauthorized access!"
+    end
+  end
+
+  def current_user_admin?
+    # check if there is a user at all - logged in
+    # and if admin flag is set
+    current_user && current_user.admin?
+  end
+
+  helper_method :current_user_admin?
+  # Helper to make it possible to call from view
+
 end
