@@ -6,7 +6,13 @@
       <%# <%= pluralize(review.stars, 'star') %>
       <%= render "shared/stars", percent: review.stars_as_percent %>
       <p>
-        <%= review.name %>
+        <%= profile_image(review.user, 35) %>
+        <%= link_to review.user.name, review.user %>
+        <%# we use link_to review.user.name and then r.user
+        returns a user object. Remember, by convention if
+        link_to is given an object like user here, then the link
+        is going to generate a url to the show page of that record,
+        which is going to be the user's profile page %>
         <span class="date">
           <%= time_ago_in_words(review.created_at) %> ago
         </span>

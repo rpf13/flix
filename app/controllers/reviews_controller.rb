@@ -1,5 +1,8 @@
 class ReviewsController < ApplicationController
 
+  before_action :require_signin
+  # only signed in user should be able to add review
+
   before_action :set_movie
   # We always want to run the set_movie method before
   # running any action's code - we want to have the movie
@@ -16,6 +19,7 @@ class ReviewsController < ApplicationController
   def create
     # review_params comes from private method
     @review = @movie.reviews.new(review_params)
+    @review.user = current_user
 
     if @review.save
       redirect_to movie_reviews_path(@movie),
@@ -29,9 +33,9 @@ end
 private
 
 # The create action must send a list of attributes, define
-# which arae valid
+# which are valid
 def review_params
-  params.require(:review).permit(:name, :comment, :stars)
+  params.require(:review).permit(:comment, :stars)
 end
 
 def set_movie
