@@ -11,6 +11,18 @@ class Movie < ApplicationRecord
   # therefore we have to create the association with the table, so
   # by convention this is plural.
 
+  has_many :fans, through: :favorites, source: :user
+  # The through option takes the name of the association through
+  # which to perform the query, which is favorites in this case. 
+  # It must be declared after the has_many :favorites association. 
+  # Since Rails can't infer that a fan is actually a user, 
+  # you also need to use the source option to specify that the source
+  # is :user. Rails then knows to use the belongs_to :user association 
+  # in the Favorite model to query the users.
+
+  has_many :critics, through: :reviews, source: :user
+  # not implemented yet in any view
+
   validates :title, :released_on, :duration, presence: true
 
   validates :description, length: { minimum:25 }
