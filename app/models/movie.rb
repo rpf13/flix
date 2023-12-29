@@ -6,6 +6,11 @@ class Movie < ApplicationRecord
   # the parent gets deleted
   has_many :reviews, dependent: :destroy
 
+  has_many :favorites, dependent: :destroy
+  # the model it refers to is favorite but the table is favorites
+  # therefore we have to create the association with the table, so
+  # by convention this is plural.
+
   validates :title, :released_on, :duration, presence: true
 
   validates :description, length: { minimum:25 }
