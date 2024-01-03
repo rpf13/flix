@@ -23,6 +23,16 @@ module MoviesHelper
     else
       "*" * movie.average_stars.round
     end
+  end
 
+  def nav_link_to(text, url)
+    # method to customize link_to in the header in order
+    # to make the currently used link active. current_page? is
+    # a rails embedded helper method 
+    if current_page?(url)
+      link_to(text, url, class: "active")
+    else
+      link_to(text, url)
+    end
   end
 end

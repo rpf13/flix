@@ -39,9 +39,18 @@ class Movie < ApplicationRecord
 
   validates :rating, inclusion: { in: RATINGS }
 
-  def self.released
-    where("released_on < ?", Time.now).order("released_on desc")
-  end
+  # custom "scope" queries
+  scope :released, -> { where("released_on < ?", Time.now).order("released_on desc") }
+  scope :upcoming, -> { where("released_on > ?", Time.now).order("released_on asc") }
+  scope :recent, ->(max=5) { released.limit(max) }
+  scope :hits, -> { released.where("total_gross >= 300000000").order(total_gross: :desc) }
+  scope :flops, -> { released.where("total_gross < 225000000").order(total_gross: :asc) }
+
+  # below the "legacy" way to execute a custom query via class level method
+  # which got replaced be scope and lambda
+  # def self.released
+  #   where("released_on < ?", Time.now).order("released_on desc")
+  # end
 
   def flop?
     # helper method flop? (returns true or false) to define
