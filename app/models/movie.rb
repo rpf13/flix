@@ -23,6 +23,9 @@ class Movie < ApplicationRecord
   has_many :critics, through: :reviews, source: :user
   # not implemented yet in any view
 
+  has_many :characterizations, dependent: :destroy
+  has_many :genres, through: :characterizations
+
   validates :title, :released_on, :duration, presence: true
 
   validates :description, length: { minimum:25 }
