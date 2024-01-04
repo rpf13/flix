@@ -22,10 +22,12 @@ class FavoritesController < ApplicationController
     # the @movie object
     redirect_to @movie
   end
-end
 
 private
 
-def set_movie
-  @movie = Movie.find(params[:movie_id])
+  def set_movie
+    # @movie = Movie.find(params[:movie_id])
+    # used before slug was introduced
+    @movie = Movie.find_by!(slug: params[:movie_id])
+  end
 end

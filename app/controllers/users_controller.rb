@@ -60,16 +60,15 @@ class UsersController < ApplicationController
       alert: "Account successfully deleted!"    
   end
 
-end
-
 private
 
-def user_params
-  params.require(:user).
-    permit(:name, :username, :email, :password, :password_confirmation)
-end
+  def user_params
+    params.require(:user).
+      permit(:name, :username, :email, :password, :password_confirmation)
+  end
 
-def require_correct_user
-  @user = User.find(params[:id])
-  redirect_to root_url, status: :see_other unless current_user?(@user)
+  def require_correct_user
+    @user = User.find(params[:id])
+    redirect_to root_url, status: :see_other unless current_user?(@user)
+  end
 end

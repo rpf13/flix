@@ -28,16 +28,18 @@ class ReviewsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-end
 
 private
 
-# The create action must send a list of attributes, define
-# which are valid
-def review_params
-  params.require(:review).permit(:comment, :stars)
-end
+  # The create action must send a list of attributes, define
+  # which are valid
+  def review_params
+    params.require(:review).permit(:comment, :stars)
+  end
 
-def set_movie
-  @movie = Movie.find(params[:movie_id])
+  def set_movie
+    # @movie = Movie.find(params[:movie_id])
+    # used before slug was introduced
+    @movie = Movie.find_by!(slug: params[:movie_id])
+  end
 end

@@ -1,6 +1,14 @@
 class Movie < ApplicationRecord
   RATINGS = %w(G PG PG-13 R NC-17)
 
+  before_save :set_slug
+  # before we save the object to the db, we need to run the
+  # private set_slug method, in order to transform the url to
+  # our user friendly url and create the slug field of the db entry
+  # the set_slug is actually a callback method.
+
+
+
   # the dependent option destroy will make sure, child entries
   # (foreign_keys), which are reviews, will also be deleted if
   # the parent gets deleted
@@ -26,7 +34,9 @@ class Movie < ApplicationRecord
   has_many :characterizations, dependent: :destroy
   has_many :genres, through: :characterizations
 
-  validates :title, :released_on, :duration, presence: true
+  validates :title, presence: true, uniqueness: true
+
+  validates :released_on, :duration, presence: true
 
   validates :description, length: { minimum:25 }
 
@@ -66,5 +76,22 @@ class Movie < ApplicationRecord
 
   def average_stars_as_percent
     (self.average_stars / 5.0) * 100
+  end
+
+  def to_param
+    # override the default to_param model, which is called when a
+    # model object needs to be converted into a URL parameter
+    # All models that subclass ApplicationRecord inherit a default
+    # to_param method that simply returns the id of the record as a string
+    slug
+  end
+
+private
+
+  def set_slug
+    # create the slug field from title, use parametrize to convert
+    # string. self is required in order to not only create a local variable
+    # but assign it to the instance.
+    self.slug = title.parameterize
   end
 end
