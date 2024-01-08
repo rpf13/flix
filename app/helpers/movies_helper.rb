@@ -35,4 +35,14 @@ module MoviesHelper
       link_to(text, url)
     end
   end
+
+  def main_image(movie)
+    # helper method to check if a movie has a main_image attached
+    # in the db or if not, apply the placeholder
+    if movie.main_image.attached?
+      image_tag movie.main_image
+    else
+      image_tag "placeholder.png"
+    end
+  end
 end

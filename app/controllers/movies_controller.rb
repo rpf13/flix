@@ -80,7 +80,7 @@ private
     # since the genre_ids is an array, we also need to define it as such
     params.require(:movie).
       permit(:title, :description, :rating, :released_on, :total_gross,
-              :director, :duration, :image_file_name, genre_ids: [])
+              :director, :duration, :main_image, genre_ids: [])
   end
 
   def set_movie
