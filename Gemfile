@@ -12,8 +12,16 @@ gem 'bootstrap', '~> 5.1', '>= 5.1.3'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
-# Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.4"
+# The db config has been adapted for use with heroku
+# Use sqlite3 as the database for Active Record in dev and test
+group :development, :test do
+  gem "sqlite3", "~> 1.4"
+end
+
+# Use postgresql as the database for Active Record in prod
+group :production do
+  gem 'pg'
+end
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
