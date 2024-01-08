@@ -164,5 +164,18 @@ Movie.create!([
     director: "Patty Jenkins",
     duration: "141 min",
     image_file_name: "wonder-woman.png"
+  },
+  {
+    title: "The End",
+    description:
+    %{
+      Movie about The End of the Universe, a dramatic futuristic movie.
+    }.squish,
+    released_on: "2025-01-01",
+    rating: "PG-13",
+    total_gross: 0,
+    director: "Steve Stevenson",
+    duration: "180 min",
+    image_file_name: "theend.png"
   }
 ])
